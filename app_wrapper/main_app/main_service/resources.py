@@ -6,12 +6,11 @@ from ..extensions import api
 
 class HellowWorldResource(Resource):
     @api.response(404, "Listing does not exists")
-    def get(self, listing_id):
+    def get(self):
         """
         hellow world test api resource
         """
         current_app.logger.debug(
-            "Listing data by listing_id request received",
-            extra={"listing_id": listing_id},
+            "Hellow world request received",
         )
         return "HELLO WORLD", 200

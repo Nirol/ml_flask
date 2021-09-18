@@ -12,4 +12,4 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 ma = Marshmallow()
 migrate = Migrate()
-api = Api(version="1.0.0", title="Vacayz API", prefix="/api/v1")
+api = Api(version="1.0.0", title="ML API", prefix="/api/v1")

@@ -22,7 +22,7 @@ from .extensions import api, db, migrate
 logger = logging.getLogger(__name__)
 
 
-def create_app(config_object="app_wrapper.config"):
+def create_app(config_object="main_app.config"):
 
     """Application factory, used to create application"""
     app = Flask(
@@ -39,7 +39,6 @@ def create_app(config_object="app_wrapper.config"):
 
 
     configure_extensions(app)
-    configure_cognito(app)
     register_blueprints(app)
     register_namespaces(app)
     # CORS(app, origins=ALLOWED_ORIGINS)
@@ -60,8 +59,7 @@ def configure_extensions(app):
 
 
 
-def configure_cognito(app):
-    importlib.import_module("locations_api.auth.identity_handler")
+
 
 
 def register_blueprints(app):

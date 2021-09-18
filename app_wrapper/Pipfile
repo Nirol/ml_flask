@@ -14,8 +14,9 @@ flask-migrate = "*"
 flask-marshmallow = "*"
 Flask-Migrate = "*"
 Flask-SQLAlchemy = "*"
-psycopg2-binary = "*"
+psycopg2-binary *"= "
 flask-restx  = "*"
+marshmallow-sqlalchemy  = "*"
 [dev-packages]
 
 [requires]
