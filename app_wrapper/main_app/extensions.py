@@ -7,9 +7,9 @@ initialized in application factory
 from flask_marshmallow import Marshmallow
 from flask_migrate import Migrate
 from flask_restx import Api
-from flask_sqlalchemy import SQLAlchemy
+from flask_pymongo import PyMongo
 
-db = SQLAlchemy()
+mongo = PyMongo()
 ma = Marshmallow()
 migrate = Migrate()
 api = Api(version="1.0.0", title="ML API", prefix="/api/v1")

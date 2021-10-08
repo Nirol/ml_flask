@@ -7,11 +7,12 @@ from flask import Flask
 # from flask_cors import CORS
 
 # from . import commands, users
-from . import main, commands
+
 from .main_service import views as main_app_views
+from .users import views as users_views
 from .tests.views import test_blueprint
 from .config import ALLOWED_ORIGINS, DEBUG, ENV
-from .extensions import api, db, migrate
+from .extensions import api, migrate, mongo
 
 # from .loggers.logger_config import LOGGER_DEV_CONFIG, LOGGER_PRODUCTION_CONFIG
 # from .tests.views import test_blueprint
@@ -28,8 +29,8 @@ def create_app(config_object="main_app.config"):
     app = Flask(
         "ml_app",
     )
-
     app.config.from_object(config_object)
+    uri = app.config['MONGO_URI']
 
     # propagate to pass 500
     app.config["PROPAGATE_EXCEPTIONS"] = True
@@ -39,39 +40,29 @@ def create_app(config_object="main_app.config"):
 
 
     configure_extensions(app)
-    register_blueprints(app)
     register_namespaces(app)
     # CORS(app, origins=ALLOWED_ORIGINS)
 
-    register_commands(app)
     # register_error_handlers(app)
     return app
 
 
 
-
-
 def configure_extensions(app):
     """configure flask extensions"""
-    db.init_app(app)
-    migrate.init_app(app, db)
     api.init_app(app)
+    mongo.init_app(app)
 
 
 
+# def register_blueprints(app):
+#     """register all blueprints for application"""
+#     app.register_blueprint(main.views.blueprint)
+#     if DEBUG or app.testing:
+#         app.register_blueprint(test_blueprint)
 
 
-
-def register_blueprints(app):
-    """register all blueprints for application"""
-    app.register_blueprint(main.views.blueprint)
-    if DEBUG or app.testing:
-        app.register_blueprint(test_blueprint)
-
-
-def register_commands(app):
-    """Register Click commands."""
-    app.cli.add_command(commands.initdb)
 
 def register_namespaces(app):
     api.add_namespace(main_app_views.ns)
+    api.add_namespace(users_views.ns)

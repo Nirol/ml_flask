@@ -1,6 +1,6 @@
-from flask import current_app
+from flask import current_app, session
 from flask_restx import Resource
-from ..extensions import api
+from ..extensions import api, mongo
 
 
 
